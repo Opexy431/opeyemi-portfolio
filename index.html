@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Opeyemi Olaofe | Backend & AI Developer</title>
+  <meta name="description" content="Portfolio of Opeyemi Olaofe — Backend & AI Developer specializing in Python, Flask, Audio ML, and scalable relational systems.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap">
+
+  <style>
+    :root {
+      --bg-deep:       #0c0c0c;
+      --bg-mid:        #141414;
+      --bg-card:       #181818;
+      --bg-line:       #202020;
+      --fg-primary:    #ffffff;
+      --fg-secondary:  #8e8e8e;
+      --accent:        #ffffff;
+      --accent-green:  #4caf50;
+      --accent-amber:  #ffb74d;
+      --accent-blue:   #64b5f6;
+      --border:        #242424;
+      --border-hover:  #3e3e3e;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+      color-scheme: dark;
+    }
+
+    :root[data-theme="light"] {
+      --bg-deep:       #f7f7f7;
+      --bg-mid:        #ffffff;
+      --bg-card:       #f0f0f0;
+      --bg-line:       #ebebeb;
+      --fg-primary:    #111111;
+      --fg-secondary:  #6c6c6c;
+      --accent:        #111111;
+      --accent-green:  #2e7d32;
+      --accent-amber:  #e65100;
+      --accent-blue:   #1565c0;
+      --border:        #d4d4d4;
+      --border-hover:  #9e9e9e;
+      color-scheme: light;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html, body {
+      background: var(--bg-deep);
+      color: var(--fg-primary);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding-left: max(20px, env(safe-area-inset-left, 0px));
+      padding-right: max(20px, env(safe-area-inset-right, 0px));
+      padding-block: 0;
+      max-width: 1440px;
+      margin-inline: auto;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      z-index: 100;
+      background: var(--bg-deep);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-inline: max(24px, env(safe-area-inset-left, 0px));
+      height: 60px;
+      backdrop-filter: blur(8px);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      z-index: 110;
+      background: var(--bg-deep);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-primary);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-logo .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: var(--fg-primary);
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--fg-secondary);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--fg-primary);
+    }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--fg-secondary);
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.15s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--fg-primary);
+      color: var(--fg-primary);
+    }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    .hero {
+      padding-inline: max(24px, env(safe-area-inset-left, 0px));
+      padding-block: 96px 84px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 36px;
+      background: radial-gradient(ellipse at 15% 45%, rgba(255,255,255,0.03) 0%, transparent 65%);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--fg-secondary);
+    }
+
+    h1 {
+      font-family: var(--mono);
+      font-size: clamp(36px, 6.2vw, 68px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--fg-primary);
+      text-wrap: balance;
+      margin-bottom: 24px;
+      text-shadow: 0 0 60px rgba(255,255,255,0.06);
+    }
+
+    h1 .dim {
+      color: var(--fg-secondary);
+      font-weight: 300;
+    }
+
+    .hero-desc {
+      font-size: 15.5px;
+      color: var(--fg-secondary);
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 11px 22px;
+      border: 1px solid var(--border);
+      color: var(--fg-secondary);
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+    }
+
+    .btn:hover {
+      border-color: var(--fg-secondary);
+      color: var(--fg-primary);
+    }
+
+    .btn.primary {
+      border-color: var(--fg-primary);
+      color: var(--fg-primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn.primary:hover {
+      background: var(--fg-primary);
+      color: var(--bg-deep);
+    }
+
+    .hero-status {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-mid);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      margin-right: 8px;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.92); }
+    }
+
+    /* ─── SECTION ────────────────────────────────────── */
+    section {
+      padding-inline: max(24px, env(safe-area-inset-left, 0px));
+      padding-block: 84px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg-secondary);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 140px;
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--fg-primary);
+      letter-spacing: -0.015em;
+    }
+
+    /* ─── EXPANDED ABOUT (FULL-WIDTH & BALANCED) ──────── */
+    .about-lead {
+      font-size: clamp(19px, 2.6vw, 24px);
+      line-height: 1.5;
+      color: var(--fg-primary);
+      margin-bottom: 40px;
+      font-weight: 400;
+      max-width: 1100px;
+    }
+
+    .about-lead .dim {
+      color: var(--fg-secondary);
+    }
+
+    .about-main-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 32px;
+      align-items: stretch;
+      margin-bottom: 32px;
+    }
+
+    .about-narrative {
+      background: var(--bg-mid);
+      border: 1px solid var(--border);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .about-narrative p {
+      font-size: 15.5px;
+      color: var(--fg-secondary);
+      line-height: 1.85;
+    }
+
+    .about-narrative p strong {
+      color: var(--fg-primary);
+      font-weight: 500;
+    }
+
+    .terminal-block {
+      background: var(--bg-mid);
+      border: 1px solid var(--border);
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.85;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .terminal-block .prompt { color: var(--fg-secondary); }
+    .terminal-block .cmd { color: var(--fg-primary); font-weight: 500; }
+    .terminal-block .output { color: var(--fg-secondary); padding-left: 16px; }
+    .terminal-block .key { color: #9eb8d4; }
+    .terminal-block .val { color: var(--fg-primary); }
+    .terminal-block .val-green { color: #81c784; }
+
+    /* 3 Pillars Grid across full width */
+    .about-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .pillar-card {
+      background: var(--bg-deep);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.15s ease;
+    }
+
+    .pillar-card:hover {
+      background: var(--bg-mid);
+    }
+
+    .pillar-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.12em;
+    }
+
+    .pillar-title {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--fg-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .pillar-desc {
+      font-size: 13.5px;
+      color: var(--fg-secondary);
+      line-height: 1.65;
+    }
+
+    /* ─── STACK ──────────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .stack-cell {
+      background: var(--bg-deep);
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .stack-cell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top left, rgba(255,255,255,0.02) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .stack-cell-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .stack-cell-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      background: var(--bg-line);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      line-height: 1.4;
+      border-radius: 1px;
+    }
+
+    .tag.highlight {
+      color: var(--fg-primary);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .tag.wip {
+      color: var(--accent-amber);
+      border-color: rgba(255, 183, 77, 0.4);
+      background: rgba(255, 183, 77, 0.08);
+    }
+
+    .tag.private {
+      color: var(--accent-blue);
+      border-color: rgba(100, 181, 246, 0.4);
+      background: rgba(100, 181, 246, 0.08);
+    }
+
+    /* ─── PROJECTS ───────────────────────────────────── */
+    .projects-header-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .projects-counter {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.08em;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      padding: 32px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+      background: var(--bg-deep);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .project-card:last-child {
+      border-bottom: none;
+    }
+
+    .project-card:hover {
+      background: var(--bg-mid);
+      box-shadow: inset 0 0 60px rgba(255,255,255,0.025);
+    }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-badge {
+      font-size: 9px;
+      padding: 2px 7px;
+      background: var(--bg-line);
+      border: 1px solid var(--border);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .project-badge.wip {
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+      background: rgba(255, 183, 77, 0.12);
+    }
+
+    .project-badge.private {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      background: rgba(100, 181, 246, 0.12);
+    }
+
+    .project-name {
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--fg-primary);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .project-desc {
+      font-family: var(--sans);
+      font-size: 13.5px;
+      color: var(--fg-secondary);
+      line-height: 1.65;
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-arrow {
+      font-family: var(--mono);
+      font-size: 22px;
+      color: var(--border);
+      transition: color 0.18s ease, transform 0.18s ease;
+      padding-top: 24px;
+    }
+
+    .project-card:hover .project-arrow {
+      color: var(--fg-primary);
+      transform: translate(3px, -3px);
+    }
+
+    /* ─── EXPERIENCE & CERTIFICATIONS ────────────────── */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .timeline-col {
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      padding: 28px;
+    }
+
+    .timeline-col-title {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-primary);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item {
+      margin-bottom: 24px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .timeline-role {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--fg-primary);
+    }
+
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .timeline-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      margin-bottom: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--fg-secondary);
+      line-height: 1.6;
+    }
+
+    .cert-item {
+      padding: 14px 16px;
+      background: var(--bg-mid);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .cert-item:hover {
+      border-color: var(--fg-primary);
+      background: var(--bg-line);
+    }
+
+    .cert-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .cert-name {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--fg-primary);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .cert-issuer {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+    }
+
+    /* ─── CONTACT ────────────────────────────────────── */
+    .contact-row {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .contact-item {
+      background: var(--bg-deep);
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-item:hover {
+      background: var(--bg-mid);
+    }
+
+    .contact-item-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .contact-item-value {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--fg-primary);
+      word-break: break-all;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      padding-inline: max(24px, env(safe-area-inset-left, 0px));
+      padding-block: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-text {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--fg-secondary);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 960px) {
+      .about-main-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-pillars {
+        grid-template-columns: 1fr;
+      }
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      nav {
+        padding-inline: max(16px, env(safe-area-inset-left, 0px));
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero {
+        padding-inline: max(16px, env(safe-area-inset-left, 0px));
+        padding-block: 60px 48px;
+        grid-template-columns: 1fr;
+      }
+      .hero-status {
+        align-items: flex-start;
+      }
+      section {
+        padding-inline: max(16px, env(safe-area-inset-left, 0px));
+        padding-block: 48px;
+      }
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+      .project-arrow {
+        display: none;
+      }
+      .contact-row {
+        grid-template-columns: 1fr;
+      }
+      footer {
+        padding-inline: max(16px, env(safe-area-inset-left, 0px));
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor, * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span>~/opeyemi.dev</span>
+    <span class="cursor"></span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Background</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">theme</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">Backend & AI Developer</div>
+    <h1>
+      Building practical systems<br>
+      <span class="dim">with clean APIs &</span><br>
+      tested flows.
+    </h1>
+    <p class="hero-desc">
+      I engineer reliable backend web applications, audio machine learning pipelines,
+      and data workflows using Python, Flask, and relational databases. Turning complex
+      operational problems into clean, high-performance web products.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#projects">Explore Projects →</a>
+      <a class="btn" href="#contact">Get In Touch</a>
+      <a class="btn" href="https://github.com/Opexy431" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-status">
+    <div class="status-badge">
+      <span class="status-dot"></span>Available for backend roles & projects
+    </div>
+    <span>Lagos, Nigeria</span>
+    <span>GMT+1 (WAT)</span>
+  </div>
+</div>
+
+<!-- ABOUT (EXPANDED & BALANCED) -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  
+  <p class="about-lead">
+    Architecting robust server-side systems and applied machine learning pipelines.
+    <span class="dim">Focused on predictable database performance, clean REST APIs, and testable product logic.</span>
+  </p>
+
+  <!-- Narrative & Terminal side-by-side with full-width span -->
+  <div class="about-main-grid">
+    <div class="about-narrative">
+      <p>
+        I am a <strong>Backend & AI Developer</strong> based in Lagos, Nigeria. My development philosophy
+        revolves around building software that works reliably under real-world pressure. From
+        architecting normalized relational databases to designing resilient REST endpoints,
+        I prioritize maintainability, security, and developer ergonomics.
+      </p>
+      <p>
+        My work spans proprietary <strong>Audio ML music transcription engines (Sol-Fa Studio)</strong>,
+        healthcare platforms with unique emergency triage codes (Carelix), AI-driven speech
+        transcription and fuzzy-matching engines (Uniduel Quiz), and certified AI applications
+        with Python and Flask. I am at home collaborating in multi-contributor repositories,
+        reviewing code, and translating fuzzy business requirements into concrete, measurable flows.
+      </p>
+    </div>
+
+    <div class="terminal-block">
+      <div><span class="prompt">$ </span><span class="cmd">whoami --json</span></div>
+      <div class="output">{</div>
+      <div class="output">  <span class="key">"name"</span>: <span class="val">"Opeyemi Emmanuel Olaofe"</span>,</div>
+      <div class="output">  <span class="key">"alias"</span>: <span class="val">"Opexy431 / @opex"</span>,</div>
+      <div class="output">  <span class="key">"role"</span>: <span class="val">"Backend & AI Developer"</span>,</div>
+      <div class="output">  <span class="key">"location"</span>: <span class="val">"Lagos State, Nigeria"</span>,</div>
+      <div class="output">  <span class="key">"specialization"</span>: [</div>
+      <div class="output">    <span class="val">"Python & Flask Backend Architecture"</span>,</div>
+      <div class="output">    <span class="val">"Audio ML, Pitch Detection & Whisper"</span>,</div>
+      <div class="output">    <span class="val">"SQLAlchemy, PostgreSQL, MySQL"</span>,</div>
+      <div class="output">    <span class="val">"Authentication & PIN Security"</span></div>
+      <div class="output">  ],</div>
+      <div class="output">  <span class="key">"availability"</span>: <span class="val-green">"open_to_opportunities"</span></div>
+      <div class="output">}</div>
+    </div>
+  </div>
+
+  <!-- 3 Full-Width Engineering Pillars -->
+  <div class="about-pillars">
+    <div class="pillar-card">
+      <div class="pillar-num">01 / ARCHITECTURE</div>
+      <div class="pillar-title">Backend & API Design</div>
+      <p class="pillar-desc">
+        Specialized in Python and Flask services. Implementing session management,
+        role-based access control (RBAC), database normalization, and secure PIN/password
+        recovery mechanisms.
+      </p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">02 / INTELLIGENCE</div>
+      <div class="pillar-title">Applied AI & Audio ML</div>
+      <p class="pillar-desc">
+        Building custom ML pipelines for audio transcription, pitch detection (Spotify Basic Pitch ONNX),
+        key estimation (Krumhansl-Schmuckler), SATB music theory constraint solvers, and Groq Whisper.
+      </p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">03 / COLLABORATION</div>
+      <div class="pillar-title">Team Repositories & Delivery</div>
+      <p class="pillar-desc">
+        Experienced in team Git workflows, clear branching, issue triage, and documentation.
+        Committed to writing testable, production-grade code that scales effortlessly.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-label">02 — Technical Stack</div>
+  <div class="stack-grid">
+    <div class="stack-cell">
+      <div class="stack-cell-label">Languages</div>
+      <div class="stack-cell-items">
+        <span class="tag highlight">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">HTML5 / CSS3</span>
+      </div>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-cell-label">Backend & Web</div>
+      <div class="stack-cell-items">
+        <span class="tag highlight">Flask</span>
+        <span class="tag">Django</span>
+        <span class="tag">RESTful APIs</span>
+        <span class="tag">Session Management</span>
+        <span class="tag">Flask-SocketIO</span>
+      </div>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-cell-label">AI & Audio ML</div>
+      <div class="stack-cell-items">
+        <span class="tag highlight">Groq Whisper</span>
+        <span class="tag highlight">Basic Pitch (ONNX)</span>
+        <span class="tag">Audio ML</span>
+        <span class="tag">Google Gemini</span>
+        <span class="tag">Dynamic Time Warping (DTW)</span>
+        <span class="tag">Web Audio API</span>
+      </div>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-cell-label">Databases & ORM</div>
+      <div class="stack-cell-items">
+        <span class="tag highlight">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">Flask-SQLAlchemy</span>
+      </div>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-cell-label">Data & Analytics</div>
+      <div class="stack-cell-items">
+        <span class="tag">pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Data Preparation</span>
+      </div>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-cell-label">Tools & Infrastructure</div>
+      <div class="stack-cell-items">
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Gunicorn</span>
+        <span class="tag">Requests</span>
+        <span class="tag">python-dotenv</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS (ALL PROJECTS: PRIVATE & PUBLIC) -->
+<section id="projects">
+  <div class="section-label">03 — Projects & Systems</div>
+
+  <div class="projects-header-info">
+    <h2>Selected Works & Systems</h2>
+    <span class="projects-counter">Public Repositories & Private Proprietary Builds</span>
+  </div>
+
+  <div class="projects-list">
+
+    <!-- Project 01: Sol-Fa Studio (Private Repo / Work in Progress) -->
+    <div class="project-card" style="border-left: 2px solid var(--accent-amber);">
+      <div>
+        <div class="project-num">
+          <span>01</span>
+          <span class="project-badge private">🔒 Private Repo</span>
+          <span class="project-badge wip">Work in Progress</span>
+        </div>
+        <div class="project-name">Sol-Fa Studio — AI Music Transcription & SATB Harmony Engine</div>
+        <p class="project-desc">
+          Proprietary web and mobile music platform engineered for choir directors, music teachers,
+          and self-taught musicians. Features a three-part audio intelligence pipeline:
+          <br>• <strong>Audio → Sol-Fa Transcription:</strong> Detects pitches with Spotify Basic Pitch (ONNX), identifies key using Krumhansl-Schmuckler, and outputs sol-fa strings (Do Re Mi Fa Sol La Ti) with duration.
+          <br>• <strong>SATB Harmony Generator:</strong> Voice-leading constraint solver generating Alto, Tenor, and Bass harmonies following standard four-part music theory.
+          <br>• <strong>Sol-Fa Scorer:</strong> Dynamic Time Warping (DTW) pitch-by-pitch comparator evaluating performance accuracy (0–100) against reference sheets.
+        </p>
+        <div class="project-tags">
+          <span class="tag private">🔒 Private / Commercial MVP</span>
+          <span class="tag">Python / Flask Backend</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Spotify Basic Pitch</span>
+          <span class="tag">Krumhansl-Schmuckler</span>
+          <span class="tag">SATB Constraint Solver</span>
+          <span class="tag">Dynamic Time Warping (DTW)</span>
+          <span class="tag">Web Audio API</span>
+        </div>
+      </div>
+      <div class="project-arrow" style="color: var(--accent-amber); font-size: 16px; padding-top: 28px;">[In Build]</div>
+    </div>
+
+    <!-- Project 02: Uniduel Quiz -->
+    <a class="project-card" href="https://github.com/Opexy431/Uniduel_quiz" target="_blank" rel="noopener">
+      <div>
+        <div class="project-num">
+          <span>02</span>
+          <span class="project-badge">Independent Builder</span>
+        </div>
+        <div class="project-name">Uniduel Quiz — Voice & Text Practice Platform</div>
+        <p class="project-desc">
+          Interactive educational app supporting dual-mode response evaluation via keyboard
+          and real-time microphone capture. Integrates Groq Whisper transcription, fuzzy
+          string-matching algorithms for lenient answer scoring, timed rounds, and browser-local
+          attempt history.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Flask</span>
+          <span class="tag">Python</span>
+          <span class="tag">Groq Whisper</span>
+          <span class="tag">Speech-to-Text</span>
+          <span class="tag">Fuzzy Matching</span>
+          <span class="tag">Web Audio API</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- Project 03: Carelix -->
+    <a class="project-card" href="https://github.com/Tesleem128-i/Carelix" target="_blank" rel="noopener">
+      <div>
+        <div class="project-num">
+          <span>03</span>
+          <span class="project-badge">Collaborating Developer</span>
+        </div>
+        <div class="project-name">Carelix — Emergency Healthcare Platform</div>
+        <p class="project-desc">
+          Emergency response and triage healthcare system built with Flask and SQLAlchemy.
+          Features rapid patient registration, unique emergency triage codes, hospital
+          location discovery, electronic health record management, appointment scheduling,
+          and role-based security access.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Flask</span>
+          <span class="tag">SQLAlchemy</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Role-Based Access</span>
+          <span class="tag">Emergency Triage</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- Project 04: Micro-Kanban -->
+    <a class="project-card" href="https://github.com/Opexy431/micro-kanban" target="_blank" rel="noopener">
+      <div>
+        <div class="project-num">
+          <span>04</span>
+          <span class="project-badge">Independent Builder</span>
+        </div>
+        <div class="project-name">Micro-Kanban — Task Manager & Productivity Suite</div>
+        <p class="project-desc">
+          High-performance fullstack productivity suite with interactive drag-and-drop boards,
+          task prioritization, state persistence, and responsive UI. Engineered with a React 19
+          and Vite frontend backed by a lightweight, modular Flask API and SQLite database.
+        </p>
+        <div class="project-tags">
+          <span class="tag">React 19</span>
+          <span class="tag">Flask 3.0</span>
+          <span class="tag">Vite</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Kanban</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- Project 05: Fincom -->
+    <a class="project-card" href="https://github.com/Prosperiko/Fincom" target="_blank" rel="noopener">
+      <div>
+        <div class="project-num">
+          <span>05</span>
+          <span class="project-badge">Collaborating Developer</span>
+        </div>
+        <div class="project-name">Fincom — Finance & Budget Tracker</div>
+        <p class="project-desc">
+          Financial tracking platform with spending analytics, categorical budget limits,
+          and automated AI business recommendations. Built core account security mechanisms
+          including secure PIN validation, session guards, and reset-password workflows.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Flask</span>
+          <span class="tag">Python</span>
+          <span class="tag">PIN Authentication</span>
+          <span class="tag">Security</span>
+          <span class="tag">Financial Analytics</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- Project 06: Emotion Detector -->
+    <a class="project-card" href="https://github.com/Opexy431/Emotion-Detector-" target="_blank" rel="noopener">
+      <div>
+        <div class="project-num">
+          <span>06</span>
+          <span class="project-badge">AI / NLP Project</span>
+        </div>
+        <div class="project-name">Emotion Detector — Sentiment & Emotion Analysis App</div>
+        <p class="project-desc">
+          AI-powered NLP web application built with Python and Flask. Analyzes user-submitted
+          text across five distinct emotional parameters (anger, disgust, fear, joy, sadness)
+          and determines the dominant emotion with confidence metrics.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">NLP</span>
+          <span class="tag">Emotion AI</span>
+          <span class="tag">Bootstrap 5</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- Project 07: Sapa Bank Prototype -->
+    <a class="project-card" href="https://github.com/Opexy431/SApa-BAnk-" target="_blank" rel="noopener">
+      <div>
+        <div class="project-num">
+          <span>07</span>
+          <span class="project-badge">Personal Project</span>
+        </div>
+        <div class="project-name">Sapa Bank — Wallet & Transaction Prototype</div>
+        <p class="project-desc">
+          Early exploratory financial prototype exploring digital wallet architecture, ledger
+          account balances, and simulated user transaction transfers.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">Ledger Prototype</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE & CERTIFICATIONS -->
+<section id="experience">
+  <div class="section-label">04 — Background & Certifications</div>
+  <div class="timeline-grid">
+    <!-- Work Experience -->
+    <div class="timeline-col">
+      <div class="timeline-col-title">Work & Education</div>
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <div class="timeline-role">Backend Developer Intern</div>
+          <div class="timeline-date">2024 — 2025</div>
+        </div>
+        <div class="timeline-sub">Yomidenzel Foundation • Ikeja, Lagos</div>
+        <p class="timeline-desc">
+          Completed intensive software development and data training. Applied Python and SQL
+          fundamentals to build data preparation and analysis workflows while collaborating
+          in agile team development sprints.
+        </p>
+      </div>
+
+      <div class="timeline-item" style="margin-top: 24px;">
+        <div class="timeline-header">
+          <div class="timeline-role">Undergraduate Studies</div>
+        </div>
+        <div class="timeline-sub">Higher Education / Academic Track</div>
+        <p class="timeline-desc">
+          Continuous academic and hands-on preparation in computing fundamentals, systems design,
+          and software engineering practices.
+        </p>
+      </div>
+    </div>
+
+    <!-- Verified Certifications -->
+    <div class="timeline-col">
+      <div class="timeline-col-title">Verified Certifications</div>
+      
+      <!-- IBM Certification -->
+      <a class="cert-item" href="https://coursera.org/verify/NK69KTNWBC03" target="_blank" rel="noopener">
+        <div>
+          <div class="cert-name">Developing AI Applications with Python and Flask</div>
+          <div class="cert-issuer">IBM • Coursera Verified (June 2026)</div>
+        </div>
+        <span class="tag highlight">Verified ↗</span>
+      </a>
+
+      <!-- Cisco Certification -->
+      <div class="cert-item">
+        <div>
+          <div class="cert-name">Data Analytics</div>
+          <div class="cert-issuer">Cisco Networking Academy</div>
+        </div>
+        <span class="tag">Verified</span>
+      </div>
+
+      <!-- Kaggle ML Certification -->
+      <div class="cert-item">
+        <div>
+          <div class="cert-name">Introduction to Machine Learning</div>
+          <div class="cert-issuer">Kaggle</div>
+        </div>
+        <span class="tag">Verified</span>
+      </div>
+
+      <!-- Kaggle Pandas Certification -->
+      <div class="cert-item">
+        <div>
+          <div class="cert-name">Pandas for Data Analysis</div>
+          <div class="cert-issuer">Kaggle</div>
+        </div>
+        <span class="tag">Verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">05 — Contact & Profiles</div>
+  <div class="contact-row">
+    <a class="contact-item" href="mailto:emmanuelolaofe5@gmail.com">
+      <div class="contact-item-label">Email</div>
+      <div class="contact-item-value">emmanuelolaofe5@gmail.com</div>
+    </a>
+    <a class="contact-item" href="https://github.com/Opexy431" target="_blank" rel="noopener">
+      <div class="contact-item-label">GitHub</div>
+      <div class="contact-item-value">github.com/Opexy431</div>
+    </a>
+    <a class="contact-item" href="https://www.linkedin.com/in/opeyemi-olaofe-62098129a/" target="_blank" rel="noopener">
+      <div class="contact-item-label">LinkedIn</div>
+      <div class="contact-item-value">opeyemi-olaofe</div>
+    </a>
+    <a class="contact-item" href="https://x.com/OlaofeEmma89389" target="_blank" rel="noopener">
+      <div class="contact-item-label">X / Twitter</div>
+      <div class="contact-item-value">@OlaofeEmma89389</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-text">© 2026 Opeyemi Emmanuel Olaofe</span>
+  <span class="footer-text">Mende, Maryland, Lagos State, Nigeria</span>
+</footer>
+
+<!-- Light/Dark Mode Toggle Script -->
+<script>
+  const toggleBtn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    root.setAttribute('data-theme', savedTheme);
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+</script>
+
+</body>
+</html>
